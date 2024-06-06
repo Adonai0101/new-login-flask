@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% import "_macro.html" as macro %}
+
+{% block contenido %}
+
+{{macro.alert()}}
+{{macro.carga()}}
+
+<div class="center card perfil">
+    
+    <img class="perfil-foto" src="{{user.foto}}" alt="" id="imagen-cargar">
+    <input type="file" id="input-cargar"  class="d-none">
+
+    <form action="/cuenta" method="POST">
+            <label>Nombre:</label>
+            <input name="nombre" type="text"  placeholder="nombre" value="{{user.nombre}}">
+            
+            <label>Telefono</label>
+            <input name="telefono" type="number" placeholder="Telefono" value="{{user.telefono}}">
+
+        <button onclick="pantallaCarga()" class="btn ">Guardar</button>
+    </form>
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{{url_for('static', filename = 'js/subirFoto.js')}}"></script>
+
+{% endblock %}

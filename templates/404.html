@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="center">
+    <img class="img404"  src="{{url_for('static', filename = 'img/404.svg')}}" alt="">
+
+    <h1>Ooops!</h1>
+    <p>Parece que no pudimos encontrar lo que buscabas</p>
+    <a class="btn mt" href="/panel">Ir al inicio</a>
+</div>
+
+
+
+{% endblock %}

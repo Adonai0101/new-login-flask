@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <title>GiftScan</title>
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="contenedor">
+        {% block contenido %}
+
+        {% endblock contenido %}
+    </div>
+
+    <!--Scripts-->    
+    <script src="{{ url_for('static', filename='js/tools.js') }}"></script>
+    
+    {% block script %}
+    
+    {% endblock script %}
+
+</body>
+</html>
