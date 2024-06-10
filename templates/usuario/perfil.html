@@ -7,18 +7,18 @@
 {{macro.carga()}}
 
 <div class="center card perfil">
-    
+
     <img class="perfil-foto" src="{{user.foto}}" alt="" id="imagen-cargar">
-    <input type="file" id="input-cargar"  class="d-none">
+    <input type="file" id="input-cargar" class="d-none">
 
-    <form action="/cuenta" method="POST">
-            <label>Nombre:</label>
-            <input name="nombre" type="text"  placeholder="nombre" value="{{user.nombre}}">
-            
-            <label>Telefono</label>
-            <input name="telefono" type="number" placeholder="Telefono" value="{{user.telefono}}">
+    <form id="form-user">
+        <label>Nombre:</label>
+        <input name="nombre" type="text" placeholder="nombre" value="{{user.nombre}}">
 
-        <button onclick="pantallaCarga()" class="btn ">Guardar</button>
+        <label>Telefono</label>
+        <input name="telefono" type="number" placeholder="Telefono" value="{{user.telefono}}">
+
+        <button id="btn-guardar" class="btn ">Guardar</button>
     </form>
 </div>
 
@@ -26,6 +26,41 @@
 {% endblock %}
 
 {% block script %}
+<script>
+    var datos = {}
+    const btn = document.getElementById('btn-guardar')
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        pantallaCarga();
+        console.log('picale')
+
+        const formulario = document.getElementById('form-user')
+        const formData = new FormData(formulario);
+
+        formData.forEach((value, key) => {
+            datos[key] = value;
+        });
+        console.log(datos)
+        enviarDatos(datos)
+    })
+
+    async function enviarDatos(datos) {
+        const response = await fetch('/cuenta', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datos)
+        });
+
+        if (!response.ok) {
+            console.log('valio madre')
+        }
+        console.log('Terminado')
+        location.reload();
+    }
+</script>
+
 <script src="{{url_for('static', filename = 'js/subirFoto.js')}}"></script>
 
 {% endblock %}
