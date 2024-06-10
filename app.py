@@ -11,7 +11,7 @@ from tools.login_required import login_required
 
 #Blueprints
 from routes.cuenta import cuenta
-from routes.fileserver import fileserver 
+
 
 #Base de datos
 from db import mongo
@@ -69,7 +69,7 @@ firebase_admin.initialize_app(cred)
 
 #Registro de blueprints
 app.register_blueprint(cuenta, url_prefix='/cuenta')
-app.register_blueprint(fileserver, url_prefix='/fileserver')
+
 
 @app.route('/')
 def index():
