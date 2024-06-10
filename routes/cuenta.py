@@ -15,7 +15,7 @@ cuenta = Blueprint('cuenta',__name__)
 def index(): 
     return render_template('usuario/perfil.html',user = session.get('user'))
 
-@cuenta.route('/',methods = ['POST'])
+@cuenta.route('/update',methods = ['POST'])
 def cuenta_post():
     user_session = session.get("user")
     uid = user_session['uid']

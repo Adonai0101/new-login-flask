@@ -45,7 +45,7 @@
     })
 
     async function enviarDatos(datos) {
-        const response = await fetch('/cuenta', {
+        const response = await fetch('/cuenta/update', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
