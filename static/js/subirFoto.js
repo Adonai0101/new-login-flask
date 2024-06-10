@@ -25,7 +25,7 @@ inputCargar.addEventListener('change', function () {
     const formData = new FormData();
     formData.append("file", inputCargar.files[0]);
 
-    fetch("/fileserver/upload", {
+    fetch("/upload", {
         method: "POST",
         body: formData
     })
@@ -46,24 +46,6 @@ inputCargar.addEventListener('change', function () {
             console.error(error);
         });
 });
-
-
-/*
-function update(data) {
-    const url = '/cuenta/updatefoto'
-    axios.post(url, data)
-        .then(response => {
-            // La solicitud fue exitosa, aquí puedes manejar la respuesta del servidor
-            console.log('Respuesta del servidor:', response.data);
-            location.reload();
-        })
-        .catch(error => {
-            // Hubo un error en la solicitud, aquí puedes manejar el error
-            console.error('Error al enviar la solicitud:', error);
-        });
-}
-
-*/
 
 
 async function update(data) {

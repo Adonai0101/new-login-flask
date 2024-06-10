@@ -1,8 +1,10 @@
-from flask import Flask, request, jsonify, render_template,session,redirect,url_for
+from flask import Flask, request, jsonify, render_template,session,redirect,url_for,flash
 import pyrebase
 import firebase_admin
 from firebase_admin import credentials, auth
 import json
+from werkzeug.utils import secure_filename
+from io import BytesIO
 
 #Importamos mi propio modulo de login
 from tools.login_required import login_required
@@ -59,6 +61,7 @@ firebase_cred = {
 }
 
 firebase = pyrebase.initialize_app(config)
+storage = firebase.storage()
 #cred = credentials.Certificate('flask-firebase-auth-.json')
 cred = credentials.Certificate(firebase_cred)
 firebase_admin.initialize_app(cred)
@@ -113,6 +116,47 @@ def login():
 def logout():
     session.clear()
     return redirect('/')
+
+#Subida de archivos a firebase
+@app.route("/upload", methods=["POST"])
+def upload_image():
+    user = session.get("user")
+
+    if "file" not in request.files:
+        return jsonify({"error": "No se encontró el archivo"}), 400
+
+    file = request.files["file"]
+
+    if file.filename == "":
+        return jsonify({"error": "No se seleccionó ningún archivo"}), 400
+
+    file_extension = file.filename.split('.')[-1]
+    archivos_permitidos = ["jpg", "jpeg", "png", "gif", "bmp", "tiff", "tif", "webp", "heic", "raw", "svg", "ico"]
+    
+    if file_extension not in archivos_permitidos:
+        flash('¡Tipo de archivo incompatible!', 'error')
+        return jsonify({"error": "Archivo no compatible"}), 400
+
+    if file:
+        filename = secure_filename(file.filename)
+        extension = filename.split(".")[-1]
+        filename = user['uid']+ "." + extension
+        try:
+            file_stream = BytesIO(file.read())  # Leer el archivo en un flujo de bytes
+
+            # Sube el archivo a Firebase Storage directamente desde el flujo de bytes
+            storage.child("images/" + filename).put(file_stream, file.content_type)
+            url = storage.child("images/" + filename).get_url(None)
+
+            return jsonify({
+                "message": "Imagen subida exitosamente",
+                'url':url,
+                'filename':filename
+            }), 200
+        except Exception as e:
+            print('error en el archivo')
+            print({"error": str(e)})
+            return jsonify({"error": str(e)}), 500  # Devuelve un mensaje de error y código 500 en caso de un error
 
 
 
