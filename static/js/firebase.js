@@ -14,6 +14,7 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
 function loginWithGoogle() {
+    pantallaCarga()
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider).then((result) => {
         // Obtener el token del usuario
@@ -28,10 +29,11 @@ function loginWithGoogle() {
             }).then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('Login successful!');
+                        //alert('Login successful!');
                         window.location.href = '/panel';
                     } else {
                         alert('Login failed!');
+                        pantallaCarga()
                     }
                 });
         });

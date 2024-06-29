@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% import "_macro.html" as macro %}
+
+{% block contenido %}
+
+{{macro.carga()}}
+{{macro.alert()}}
+<div class="center card perfil">
+
+    <h1>¡Felicidades!</h1>
+    <p class="mb">Entregaste una recompensa a uno de tus clientes </p>
+    <img class="img404 mb mt" style="width: 40%;" src="{{ url_for('static', filename='img/happy.svg') }}" alt="">
+    <a href="/panel" class="btn">Inicio</a>
+</div>
+{% endblock %}

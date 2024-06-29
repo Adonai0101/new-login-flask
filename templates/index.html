@@ -6,10 +6,21 @@
     <!-- Incluir la biblioteca de Firebase (versiones compatibles con navegadores) -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 
 <body>
+
+    <div class="loader">
+        <div class="wrap">
+            <div class="loading">
+                <div class="bounceball"></div>
+                <div class="text">Cargando ...</div>
+            </div>
+        </div>
+    </div>
+
     <main class="main-container">
         <div class="login-card">
 
@@ -54,6 +65,12 @@
 
         </div>
     </main>
+    <script>
+        function pantallaCarga() {
+            const carga = document.querySelector('.loader')
+            carga.classList.add('active');
+        }
+    </script>
     <script src="{{ url_for('static', filename='js/firebase.js') }}"></script>
 </body>
 

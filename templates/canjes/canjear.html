@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% import "_macro.html" as macro %}
+
+{% block contenido %}
+
+{{macro.carga()}}
+{{macro.alert()}}
+<div class="center card perfil">
+
+    <h1>{{codigo}}</h1>
+    <p>ingresa el codigo  de tu cliente"</p>
+    <img class="img404 mb mt" style="width: 50%;" src="{{ url_for('static', filename='img/insertCodigo.svg') }}" alt="">
+    
+    <form action="/canjes/code" method="post" class="mt">
+        <input type="text" name="codigo" placeholder="65262">
+        <button class="btn">Enviar</button>
+    </form>
+</div>
+{% endblock %}

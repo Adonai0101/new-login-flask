@@ -10,8 +10,13 @@ from io import BytesIO
 from tools.login_required import login_required
 
 #Blueprints
+from routes.panel import panel
 from routes.cuenta import cuenta
-
+from routes.miqr import miqr
+from routes.tarjeta import tarjeta
+from routes.scaner import scaner
+from routes.tickets import tickets
+from routes.canjes import canjes
 
 #Base de datos
 from db import mongo
@@ -26,9 +31,6 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Deberías usar una clave secreta segura
 app.config["UPLOAD_FOLDER"] = "uploads"
-
-# Configuración básica de Talisman, maneja las peticiones en https
-#Talisman(app,force_https=True)
 
 #Mongo db
 app.config['MONGO_URI'] = os.getenv('URL_DB')
@@ -68,7 +70,13 @@ firebase_admin.initialize_app(cred)
 
 
 #Registro de blueprints
+app.register_blueprint(panel, url_prefix='/panel')
 app.register_blueprint(cuenta, url_prefix='/cuenta')
+app.register_blueprint(miqr, url_prefix='/miqr')
+app.register_blueprint(tarjeta, url_prefix='/tarjeta')
+app.register_blueprint(scaner, url_prefix='/scaner')
+app.register_blueprint(tickets, url_prefix='/tickets')
+app.register_blueprint(canjes, url_prefix='/canjes')
 
 
 @app.route('/')
@@ -164,15 +172,6 @@ def upload_image():
 @login_required
 def pagina_no_encontrada(error):
     return render_template('404.html',user = session.get('user'))
-
-@app.route('/panel')
-@login_required
-def dash_page():
-    user = session.get('user')
-    return render_template('panel/panel.html',user = user)
-
-
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

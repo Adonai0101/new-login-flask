@@ -1,4 +1,33 @@
 {% extends 'base.html' %}
 {% block contenido %}
-    <h1>Flask 3.0</h1>
+
+<div class="panel_main">
+    <div class="panel_header mb">
+        <h1>insertar Baner</h1>
+    </div>
+    <div class="panel_body">
+        <h2 class="mb">Mis tickets</h2>
+        <div class="cont-tickets">
+            {% for tarjeta in tarjetas %}
+                <a class="card-link" href="/tickets/{{tarjeta._id}}">  
+                    <div class="h-card">
+                        <img class="" src="{{tarjeta.qr.user['foto']}}" alt="">
+                        <div class="h-body">
+                            <h3 class="text-center mb">{{tarjeta.qr.user['nombre']}}</h3>
+                            <p>Recompensa: {{tarjeta.qr['recompensa']}}</p>
+                            <p>canjes: {{tarjeta['canjes']}} de {{tarjeta.qr['canjes']}}</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+    </div>
+    <div class="panel_footer">
+        <a href="/scaner" class="btn">Escanear</a>
+    </div>
+</div>
+
+
+
 {% endblock %}

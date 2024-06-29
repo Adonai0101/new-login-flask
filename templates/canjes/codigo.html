@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% import "_macro.html" as macro %}
+
+{% block contenido %}
+
+{{macro.carga()}}
+{{macro.alert()}}
+<div class="center card perfil">
+
+    <h1>Estás a punto de ganar</h1>
+    <p class="mb">Muestra tu código para recibir tu recompensa.</p>
+    <img class="img404 mb mt" style="width: 40%;" src="{{ url_for('static', filename='img/codigo.svg') }}" alt="">
+    <span class="codigo">{{codigo}}</span>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% import "_macro.html" as macro %}
+
+{% block contenido %}
+
+{{macro.carga()}}
+{{macro.alert()}}
+<div class="center card perfil">
+
+    <h2>Configura tu tarjeta de lealtad</h2>
+
+    {% if qr %}
+    <form action="/miqr" method="POST">
+        <label>Numero de canjes</label>
+        <input name="canjes" type="number"  placeholder="Numero de canjes" value="{{qr['canjes']}}">
+
+        <label>Recompensa</label>
+        <input name="recompensa" type="text" placeholder="Recompensa" value="{{qr['recompensa']}}">
+        
+        <button onclick="pantallaCarga()" class="btn mb "> Modificar</button>
+        <a href="/tarjeta" class="btn sec"> Ver mi tarjeta de lealtad</a>
+    </form>
+    
+
+    {% else %}
+    <form action="/miqr" method="POST">
+        <label for="floatingInput">Numero de canjes</label>
+        <input name="canjes" type="number" placeholder="5">
+        <label for="floatingInput">Recompensa</label>
+        <input name="recompensa" type="text"  placeholder="bebida gratis">
+
+        <button class="btn"> Guardar</button>
+    </form>
+
+    {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% import "_macro.html" as macro %}
+
+{% block contenido %}
+    {{macro.carga()}}
+    <div class="center card perfil">
+        
+        {{macro.alert()}}
+        
+        <div class="center ">
+            <div class="scaner-container">
+                <video  id="qr-video" width="100%" height="100%" style="transform: scaleX(-1);"></video>
+                <canvas  id="qr-canvas" style="display: none;"></canvas>
+                
+            </div>
+        </div>
+        
+        <a href="/panel" class="btn sec mt">Cancelar</a>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
+    <script src="{{url_for('static', filename = 'js/scaner.js')}}"></script>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<h2 class="mb">Mis tickets</h2>
+<div class="cont-tickets">
+    {% for tarjeta in tarjetas %}
+    <a class="card-link" href="{{tarjeta._id}}">
+        <div class="h-card">
+            <img class="" src="{{tarjeta.qr.user['foto']}}" alt="">
+            <div class="h-body">
+                <h3 class="text-center mb">{{tarjeta.qr.user['nombre']}}</h3>
+                <p>Recompensa: {{tarjeta.qr['recompensa']}}</p>
+                <p>canjes: {{tarjeta['canjes']}} de {{tarjeta.qr['canjes']}}</p>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

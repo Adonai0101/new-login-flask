@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% from '_macro.html' import alert %}
+
+{% block contenido %}
+<div class="center card perfil">
+    <h1 class="text-center">Oh No! algo salio mal</h1>
+    <div class="center mt">
+        <img class="img404" src="{{url_for('static', filename = 'img/error.svg')}}" alt="">
+    </div>
+    <a href="/panel" class="btn mt">Inicio</a>
+</div>
+{% endblock %}

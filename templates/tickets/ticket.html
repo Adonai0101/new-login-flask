@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% from '_macro.html' import alert %}
+
+{% block contenido %}
+
+{% set canjes = tarjeta.qr.canjes %}
+{% set x = tarjeta.canjes %}
+
+<div class="center card perfil">
+
+    <div class="center">
+        <img class="perfil-foto" src="{{tarjeta.qr.user['foto']}}" alt="">
+    </div>
+
+    <h1 class="text-center">{{tarjeta.qr.user['nombre']}}</h1>
+    <p class="text-center">{{tarjeta.qr['recompensa']}}</p>
+
+    
+    <div class=" gift-container mb mt">
+        {% for i in range(canjes) %}
+            {% set color = 'green' if i < x else 'gray' %}
+            
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="{{color}}" class="bi bi-gift-fill" viewBox="0 0 16 16">
+                <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A3 3 0 0 1 3 2.506zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43zM9 3h2.932l.023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0zm6 4v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9z"/>
+            </svg>
+        {% endfor %}
+
+    </div>
+
+    {% if x >= canjes %}
+        <a class="btn mt" href="/canjes/{{tarjeta['_id']}}">Recibir recompensa</a>
+    {% else %}
+        <a class="btn mt" href="/panel">Inicio</a>
+    {% endif %}
+    
+</div>
+
+{% endblock %}
