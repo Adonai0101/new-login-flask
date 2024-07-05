@@ -48,10 +48,12 @@ def get_code():
 @login_required
 def one_canjes(id):
     user = session.get('user')
-    ticket = mongo.db.tarjeta.find_one({'_id':ObjectId(id)})
-    codigo = ticket['codigo']
-    return render_template('canjes/codigo.html',user = user, codigo = codigo)
-
+    try:
+        ticket = mongo.db.tarjeta.find_one({'_id':ObjectId(id)})
+        codigo = ticket['codigo']
+        return render_template('canjes/codigo.html',user = user, codigo = codigo)
+    except:
+        return redirect('/panel')
 
 @canjes.route('/done')
 @login_required
