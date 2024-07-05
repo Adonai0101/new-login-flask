@@ -20,7 +20,7 @@ def index():
     return render_template('usuario/qr.html',user = user, qr = qr)
 
 
-@miqr.route('/',methods = ['POST'])
+@miqr.route('/add',methods = ['POST'])
 @login_required
 def create():
     user = session.get('user')

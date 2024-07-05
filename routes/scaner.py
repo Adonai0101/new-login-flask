@@ -32,7 +32,7 @@ def scaner_done():
 def scaner_error():
     return render_template('scaner/error.html',user = session.get('user'))
 
-@scaner.route('/',methods = ['POST'])
+@scaner.route('/api',methods = ['POST'])
 def read_code():
     user = session.get("user")
     uid = user['uid']

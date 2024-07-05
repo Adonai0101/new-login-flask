@@ -10,7 +10,7 @@
     <h2>Configura tu tarjeta de lealtad</h2>
 
     {% if qr %}
-    <form action="/miqr" method="POST">
+    <form action="/miqr/add" method="POST">
         <label>Numero de canjes</label>
         <input name="canjes" type="number"  placeholder="Numero de canjes" value="{{qr['canjes']}}">
 
@@ -23,7 +23,7 @@
     
 
     {% else %}
-    <form action="/miqr" method="POST">
+    <form action="/miqr/add" method="POST">
         <label for="floatingInput">Numero de canjes</label>
         <input name="canjes" type="number" placeholder="5">
         <label for="floatingInput">Recompensa</label>

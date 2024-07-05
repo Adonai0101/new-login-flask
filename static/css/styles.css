@@ -225,8 +225,9 @@ form button{
     margin-top: 10px;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    height: calc(100vh - 100px) /* Ajusta la altura del contenedor al 100% de la vista */
+    height: calc(100dvh - 100px);
 }
+
 .panel_body{
     overflow-y: scroll;
     margin-bottom: 10px;

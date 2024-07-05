@@ -43,7 +43,7 @@ function scanQRCode() {
       body: JSON.stringify(data), // Convierte los datos a JSON y colócalos en el cuerpo de la solicitud
     };
 
-    fetch('/scaner', request)
+    fetch('/scaner/api', request)
       .then(response => {
         if (!response.ok) {
           console.log('Esto entro al error ALV')
