@@ -17,6 +17,7 @@ from routes.tarjeta import tarjeta
 from routes.scaner import scaner
 from routes.tickets import tickets
 from routes.canjes import canjes
+from routes.tyc import tyc
 
 #Base de datos
 from db import mongo
@@ -77,6 +78,7 @@ app.register_blueprint(tarjeta, url_prefix='/tarjeta')
 app.register_blueprint(scaner, url_prefix='/scaner')
 app.register_blueprint(tickets, url_prefix='/tickets')
 app.register_blueprint(canjes, url_prefix='/canjes')
+app.register_blueprint(tyc, url_prefix='/tyc')
 
 
 @app.route('/')
