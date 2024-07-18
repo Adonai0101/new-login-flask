@@ -34,6 +34,12 @@ def cuenta_post():
             'user.telefono':user['telefono'],
             }})
         
+        #Modificar la informacion del usuario en las tarjetas
+        resultado = mongo.db.tarjeta.update_one({'qr.uid':uid},{"$set":{
+            'qr.user.nombre':user['nombre'],
+            'qr.user.telefono':user['telefono'],
+            }})
+        
         get_user()
         flash('¡Usuario modificado con éxito!', 'success')
     else:
@@ -48,6 +54,10 @@ def update_foto():
     uid = user_session['uid']
     data = request.json
     resultado = mongo.db.user.update_one({'uid':uid},{"$set":{'foto':data['url']}})
+    #Modificando la url en el qr
+    resultado = mongo.db.qr.update_one({'uid':uid},{"$set":{'user.foto':data['url']}})
+    #Modificando la url en la tarjeta
+    resultado = mongo.db.tarjeta.update_one({'qr.uid':uid},{"$set":{'qr.user.foto':data['url']}})
     get_user()
     flash('¡Foto actualizada!', 'success')
     print('se modifico bien la foto')

@@ -3,10 +3,9 @@
 
 <div class="panel_main">
     <div class="panel_header mb">
-        <h1>insertar Baner</h1>
+        <img src="{{ url_for('static', filename='img/banner.png')}}" alt="">
     </div>
     <div class="panel_body">
-        <h2 class="mb">Mis tickets</h2>
         <div class="cont-tickets">
             {% for tarjeta in tarjetas %}
                 <a class="card-link" href="/tickets/{{tarjeta._id}}">  

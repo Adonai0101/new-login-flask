@@ -37,8 +37,15 @@ def create():
         resultado = mongo.db.qr.find_one({'uid':user['uid']})
         #Coprobamos si existe 
         if resultado:
-            #mongo.db.qr.insert_one(datos)
             mongo.db.qr.update_one({'uid':user['uid']},{"$set":datos})
+            #Modificando los datos para la tarjeta
+            mongo.db.tarjeta.update_one({'qr.uid':user['uid']},{"$set":{
+                'qr.uid': user['uid'],
+                'qr.canjes': int(request.form['canjes']),
+                'qr.recompensa': request.form['recompensa'],
+                'qr.user':user
+            }})
+
             flash('Tarjeta actualizada','success')
         else:
             mongo.db.qr.insert_one(datos)
