@@ -29,13 +29,13 @@ def cuenta_post():
     
         resultado = mongo.db.user.update_one({'uid':uid},{"$set":user}) 
         #modificando la informacion del qr segun el usuario
-        resultado = mongo.db.qr.update_one({'uid':uid},{"$set":{
+        resultado = mongo.db.qr.update_many({'uid':uid},{"$set":{
             'user.nombre':user['nombre'],
             'user.telefono':user['telefono'],
             }})
         
         #Modificar la informacion del usuario en las tarjetas
-        resultado = mongo.db.tarjeta.update_one({'qr.uid':uid},{"$set":{
+        resultado = mongo.db.tarjeta.update_many({'qr.uid':uid},{"$set":{
             'qr.user.nombre':user['nombre'],
             'qr.user.telefono':user['telefono'],
             }})
@@ -55,9 +55,9 @@ def update_foto():
     data = request.json
     resultado = mongo.db.user.update_one({'uid':uid},{"$set":{'foto':data['url']}})
     #Modificando la url en el qr
-    resultado = mongo.db.qr.update_one({'uid':uid},{"$set":{'user.foto':data['url']}})
+    resultado = mongo.db.qr.update_many({'uid':uid},{"$set":{'user.foto':data['url']}})
     #Modificando la url en la tarjeta
-    resultado = mongo.db.tarjeta.update_one({'qr.uid':uid},{"$set":{'qr.user.foto':data['url']}})
+    resultado = mongo.db.tarjeta.update_many({'qr.uid':uid},{"$set":{'qr.user.foto':data['url']}})
     get_user()
     flash('¡Foto actualizada!', 'success')
     print('se modifico bien la foto')

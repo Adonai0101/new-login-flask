@@ -39,7 +39,7 @@ def create():
         if resultado:
             mongo.db.qr.update_one({'uid':user['uid']},{"$set":datos})
             #Modificando los datos para la tarjeta
-            mongo.db.tarjeta.update_one({'qr.uid':user['uid']},{"$set":{
+            mongo.db.tarjeta.update_many({'qr.uid':user['uid']},{"$set":{
                 'qr.uid': user['uid'],
                 'qr.canjes': int(request.form['canjes']),
                 'qr.recompensa': request.form['recompensa'],
