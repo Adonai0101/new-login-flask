@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template,session,json,jsonify,request
+from flask import Blueprint,render_template,session,json,jsonify,request,redirect
 #Mis herramientas
 from tools.login_required import login_required
 from tools.validaciones import *
@@ -54,9 +54,14 @@ def read_code():
             }
             consulta = mongo.db.tarjeta.find_one(filtro)
             if consulta:
-                actualizacion = {'$inc': {'canjes': 1}}
-                mongo.db.tarjeta.update_one(filtro,actualizacion)
-                print('SI tenemos tarjeta incrementar')
+                visitas = consulta['canjes']
+                canjes = consulta['qr']['canjes']
+                if visitas < canjes:
+                    actualizacion = {'$inc': {'canjes': 1}}
+                    mongo.db.tarjeta.update_one(filtro,actualizacion)
+                    print('SI tenemos tarjeta incrementar')
+                else:
+                    print('overflow')
             else:
                 print('NO tenemos tarjeta generar una nueva')
                 tarjeta = {

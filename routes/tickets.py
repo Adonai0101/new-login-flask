@@ -29,3 +29,17 @@ def one_ticket(id):
     user = session.get('user')
     tarjeta = mongo.db.tarjeta.find_one({'_id':ObjectId(id)})
     return render_template('tickets/ticket.html',user = user ,tarjeta = tarjeta)
+
+@tickets.route('/eliminar/<id>/<uid>')
+@login_required
+def delete_tecket(id,uid):
+    user = session.get('user')
+    user_id = user['uid']
+    print(user_id)
+
+    if uid == user_id:
+        try:
+            resultado = mongo.db.tarjeta.delete_one({'_id': ObjectId(id)})
+        except:
+            print('error al eliminar')
+    return redirect('/panel')
